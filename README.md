@@ -6,9 +6,13 @@ This is a repo for my Twitter Bot that predicts people's future based on their w
 - Spend time thinking about the scope of the project. What does done look like? What is the __minimum viable project__ that you could ship that accomplishes the goal of your project?
 - Author and push a README (in plain text or markdown) that describes your project:
   - What is the goal of the project?
+    + To further learn how to consume the Twitter API, search for tweets with a given set of words, and publish tweets in response automatically.
   - Who is the target audience (can be just yourself)?
+    + Myself and anyone else who thinks its funny. I might be the only one.
   - What are your personal learning goals?
+    +
   - What technologies/frameworks/patterns will you be employing?
+    +
   - What are the tech and/or skill dependencies of your project?
   - What does success look like for this project? What does _done_ mean?
 - Creat a Trello board in which you decompose the tasks and deliverables of the project.
