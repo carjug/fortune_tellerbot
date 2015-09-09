@@ -40,7 +40,7 @@ group :development, :test do
 
   gem 'factory_girl_rails', '~> 4.0'
 
-  gem 'gem simplecov', require: false
+  gem 'simplecov', require: false
 end
 
 group :development do
