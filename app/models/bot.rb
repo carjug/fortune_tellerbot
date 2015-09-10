@@ -3,22 +3,24 @@ class Bot < ActiveRecord::Base
 
   def self.find_and_reply()
     @followers = []
+    @tweets    = Tweet.all
 
     CLIENT.followers.collect do |f|
-      follower = []
-      @user = CLIENT.user(f)
-      @tweet = @user.tweet
-
+      @user   = CLIENT.user(f)
+      @tweet  = @user.tweet
 
       if @tweet.text.include?("I am hopeful")
         CLIENT.update(
           Bot.send_reply_tweet(@user.screen_name),
           in_reply_to_status_id: @tweet.id
           )
+        Tweet.create(
+          tweet_id: @tweet.id,
+          follower_id: @user.id.to_s
+          )
       end
 
-      Tweet.create(tweet_id: @tweet.id, follower_id: @user.id.to_s)
-
+      follower = []
       follower.push(@user.screen_name)
       follower.push(@user.id.to_s)
       @followers.push(follower)
