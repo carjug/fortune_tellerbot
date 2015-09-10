@@ -10,14 +10,14 @@ class Bot < ActiveRecord::Base
       @tweet = @user.tweet
 
 
-      if @tweet.include?("I am hopeful")
+      if @tweet.text.include?("I am hopeful")
         CLIENT.update(
           Bot.send_reply_tweet(@user.screen_name),
           in_reply_to_status_id: @tweet.id
           )
       end
 
-      Tweet.create(tweet_id: @tweet.id)
+      Tweet.create(tweet_id: @tweet.id, follower_id: @user.id.to_s)
 
       follower.push(@user.screen_name)
       follower.push(@user.id.to_s)
@@ -32,7 +32,7 @@ class Bot < ActiveRecord::Base
 
   def self.create_followers(collection)
     collection.each do |follower|
-      Follower.find_or_create_by(name: follower[0], tweet_id: follower[1])
+      Follower.find_or_create_by(name: follower[0], twitter_id: follower[1])
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910221852) do
+ActiveRecord::Schema.define(version: 20150910224150) do
 
   create_table "bots", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150910221852) do
 
   create_table "followers", force: :cascade do |t|
     t.string   "name"
-    t.string   "tweet_id"
+    t.string   "twitter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20150910221852) do
 
   create_table "tweets", force: :cascade do |t|
     t.string   "tweet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "follower_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
