@@ -7,11 +7,17 @@ class Bot < ActiveRecord::Base
     CLIENT.followers.collect do |f|
       follower = []
       @user = CLIENT.user(f)
-      @tweet = @user.tweet.text
+      @tweet = @user.tweet
+
 
       if @tweet.include?("I am hopeful")
-        CLIENT.update(Bot.send_reply_tweet(@user.screen_name), in_reply_to_status_id: @user.tweet.id)
+        CLIENT.update(
+          Bot.send_reply_tweet(@user.screen_name),
+          in_reply_to_status_id: @tweet.id
+          )
       end
+
+      Tweet.create(tweet_id: @tweet.id)
 
       follower.push(@user.screen_name)
       follower.push(@user.id.to_s)
