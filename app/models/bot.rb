@@ -2,12 +2,12 @@ class Bot < ActiveRecord::Base
 # going to need to get the twitter handle of the person who has issued the hopeful tweet as well
 # Look at twitter docs for what attributes are available on the Tweet object through the Twitter gem
 
-  def self.find_followers()
+  def self.find_or_create_followers()
    @screen_names = CLIENT.followers.collect do |f|
       CLIENT.user(f).screen_name
     end
     @screen_names.each do |f|
-      Follower.create(name: f)
+      Follower.find_or_create_by(name: f)
     end
   end
 
