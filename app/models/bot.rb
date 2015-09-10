@@ -4,23 +4,18 @@ class Bot < ActiveRecord::Base
 # Look at twitter docs for what attributes are available on the Tweet object through the Twitter gem
 
   def self.search_hope
-    CLIENT.search("I hope that", lang: "en").first
+    @tweet = CLIENT.search("I hope that", lang: "en").first
+
+    @tweet_id = @tweet.id
+
+    @tweet_string = @tweet.text
+
+    # Bot.send_reply_tweet(@tweet_id)
   end
 
-  def self.send_reply_tweet(tweet, id)
-    CLIENT.update(tweet, in_reply_to_status_id: id)
+  def self.send_reply_tweet(id)
+    binding.pry
+    CLIENT.update(Response.order_by_rand.first.tweet, in_reply_to_status_id: id)
   end
-
-  # def index
-  #   @tweet = Bot.search_hope
-
-  #   @tweet_id = @tweet.id
-
-  #   @tweet_string = @tweet.text
-  # end
-
-  # def reply
-  #   Bot.send_reply_tweet("Seems likely", @tweet_id)
-  # end
 
 end

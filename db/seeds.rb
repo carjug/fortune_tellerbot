@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Response.create(tweet: "That seems likely.")
+
+Response.create(tweet: "Don't hold your breath.")
+
+Response.create(tweet: "I see this in your future.")
+
+Response.create(tweet: "Your future is very bright.")
