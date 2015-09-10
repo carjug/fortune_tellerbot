@@ -11,4 +11,16 @@ class Bot < ActiveRecord::Base
     CLIENT.update(tweet, in_reply_to_status_id: id)
   end
 
+  # def index
+  #   @tweet = Bot.search_hope
+
+  #   @tweet_id = @tweet.id
+
+  #   @tweet_string = @tweet.text
+  # end
+
+  # def reply
+  #   Bot.send_reply_tweet("Seems likely", @tweet_id)
+  # end
+
 end
