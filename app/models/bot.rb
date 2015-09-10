@@ -3,25 +3,28 @@ class Bot < ActiveRecord::Base
 # Look at twitter docs for what attributes are available on the Tweet object through the Twitter gem
 
   def self.find_or_create_followers()
-   @screen_names = CLIENT.followers.collect do |f|
-      CLIENT.user(f).screen_name
+    @followers = []
+
+    CLIENT.followers.collect do |f|
+      follower = []
+      @user = CLIENT.user(f)
+      @tweet = @user.tweet.text
+      if @tweet.include?("I am hopeful")
+        CLIENT.update(Bot.send_reply_tweet(@user.screen_name), in_reply_to_status_id: @user.id.to_s)
+      end
+
+      follower.push(@user.screen_name)
+      follower.push(@user.id.to_s)
+      @followers.push(follower)
     end
-    @screen_names.each do |f|
-      Follower.find_or_create_by(name: f)
+
+    @followers.each do |follower|
+      Follower.find_or_create_by(name: follower[0], tweet_id: follower[1])
     end
   end
 
-  def self.search_hope
-    @tweet = CLIENT.search("I hope that", lang: "en").first
-
-    @tweet_id = @tweet.id
-
-    @tweet_string = @tweet.text
-  end
-
-  def self.send_reply_tweet(id)
-    binding.pry
-    CLIENT.update(Response.order_by_rand.first.tweet, in_reply_to_status_id: id)
+  def self.send_reply_tweet(name)
+    "@" + name + " " + Response.order_by_rand.first.tweet
   end
 
 end
