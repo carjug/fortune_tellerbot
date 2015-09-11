@@ -3,13 +3,14 @@ class Bot < ActiveRecord::Base
 
   def self.find_and_reply()
     @followers = []
-    @tweets    = Tweet.all
 
     CLIENT.followers.collect do |f|
       @user   = CLIENT.user(f)
       @tweet  = @user.tweet
 
-      if @tweet.text.include?("I am hopeful")
+      Bot.check_for_existing_tweets(@tweet.id.to_s)
+
+      if @tweet.text.include?("I am hopeful") && @nonexistant_tweets == 0
         CLIENT.update(
           Bot.send_reply_tweet(@user.screen_name),
           in_reply_to_status_id: @tweet.id
@@ -25,7 +26,20 @@ class Bot < ActiveRecord::Base
       follower.push(@user.id.to_s)
       @followers.push(follower)
     end
+
     Bot.create_followers(@followers)
+  end
+
+  def self.check_for_existing_tweets(current_tweet_id)
+    @tweets = Tweet.all
+    @nonexistant_tweets = 0
+
+    @tweets.each do |tweet|
+      if current_tweet_id == tweet.tweet_id
+        @nonexistant_tweets += 1
+      end
+      return @nonexistant_tweets
+    end
   end
 
   def self.send_reply_tweet(name)
