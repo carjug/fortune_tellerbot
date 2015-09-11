@@ -1,5 +1,5 @@
 class Bot < ActiveRecord::Base
-  # Need to write a check so bot does not reply to a single tweet more than once.
+# Should write a method that sends out a tweet when the bot is bored because no one is tweeting hopeful things.
 
   def self.find_and_reply()
     @followers = []
