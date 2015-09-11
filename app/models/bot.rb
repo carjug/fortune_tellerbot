@@ -8,7 +8,7 @@ class Bot < ActiveRecord::Base
       @user   = CLIENT.user(f)
       @tweet  = @user.tweet
 
-      Bot.check_for_existing_tweets(@tweet.id.to_s)
+      Bot.check_for_existing_tweet(@tweet.id.to_s)
 
       if @tweet.text.include?("I am hopeful") && @nonexistant_tweets == 0
         CLIENT.update(
@@ -30,16 +30,16 @@ class Bot < ActiveRecord::Base
     Bot.create_followers(@followers)
   end
 
-  def self.check_for_existing_tweets(current_tweet_id)
+  def self.check_for_existing_tweet(current_tweet_id)
     @tweets = Tweet.all
     @nonexistant_tweets = 0
 
     @tweets.each do |tweet|
-      if current_tweet_id == tweet.tweet_id
+      if tweet.tweet_id == current_tweet_id
         @nonexistant_tweets += 1
       end
-      return @nonexistant_tweets
     end
+    return @nonexistant_tweets
   end
 
   def self.send_reply_tweet(name)
