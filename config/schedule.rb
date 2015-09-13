@@ -5,9 +5,10 @@
 
 # Example:
 #
-# set :output, "/path/to/my/cron_log.log"
+set :output, {:standard => 'cron.log'}
+# job_type :rake, "cd /Users/cajugler/ada/project_forks/fortune_tellerbot && RAILS_ENV=production bundle exec rake bot:run_bot --silent"
 #
-every '15,30,45 * * * *' do
+every '*/2 * * * *' do
   # command "/usr/bin/some_great_command"
   # runner "Bot.find_and_reply"
   rake "bot:run_bot"
