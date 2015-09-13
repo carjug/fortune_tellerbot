@@ -1,5 +1,5 @@
 class Bot < ActiveRecord::Base
-# Should write a method that sends out a tweet when the bot is bored because no one is tweeting hopeful things.
+# Should write a method that sends out a tweet when the bot is bored because no one is tweeting hopeful things. Because that would be fun.
 
   def self.find_and_reply()
     CLIENT.followers.collect do |f|
