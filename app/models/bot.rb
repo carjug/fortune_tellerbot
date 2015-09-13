@@ -2,8 +2,6 @@ class Bot < ActiveRecord::Base
 # Should write a method that sends out a tweet when the bot is bored because no one is tweeting hopeful things.
 
   def self.find_and_reply()
-    @followers = []
-
     CLIENT.followers.collect do |f|
       @user   = CLIENT.user(f)
       @tweet  = @user.tweet
@@ -37,11 +35,5 @@ class Bot < ActiveRecord::Base
 
   def self.send_reply_tweet(name)
     "@" + name + " " + Response.order_by_rand.first.tweet
-  end
-
-  def self.create_followers(collection)
-    collection.each do |follower|
-      Follower.find_or_create_by(name: follower[0], twitter_id: follower[1])
-    end
   end
 end

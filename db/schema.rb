@@ -18,13 +18,6 @@ ActiveRecord::Schema.define(version: 20150910224150) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "followers", force: :cascade do |t|
-    t.string   "name"
-    t.string   "twitter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "responses", force: :cascade do |t|
     t.string   "tweet"
     t.datetime "created_at", null: false
