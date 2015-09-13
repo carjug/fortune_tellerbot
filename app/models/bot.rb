@@ -20,14 +20,7 @@ class Bot < ActiveRecord::Base
           follower_id: @user.id.to_s
           )
       end
-
-      follower = []
-      follower.push(@user.screen_name)
-      follower.push(@user.id.to_s)
-      @followers.push(follower)
     end
-
-    Bot.create_followers(@followers)
   end
 
   def self.check_for_existing_tweet(current_tweet_id)
