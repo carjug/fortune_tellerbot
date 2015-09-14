@@ -9,7 +9,7 @@ if Rails.env.development?
 end
 
 if Rails.env.production?
-  set :environment, 'production'
+  set :environment,'production'
 
   every 15.minutes do
     rake "bot:run_bot"
