@@ -25,11 +25,15 @@ RSpec.describe Bot, type: :model do
       end
     end
 
+    it "returns an instance of an Array of followers" do
+      expect(Bot.find_and_reply).to be_an_instance_of Array
+    end
+
     it "checks existing tweets" do
       expect(Bot.check_for_existing_tweet("1")).to eq 1
     end
 
-    it "generates a response tweet when send_reply_tweet is called" do
+    it "generates a response tweet" do
       expect(Bot.send_reply_tweet("carjug")).to eq "@carjug Don't count on it"
     end
   end
