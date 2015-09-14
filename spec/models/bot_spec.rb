@@ -25,18 +25,12 @@ RSpec.describe Bot, type: :model do
       end
     end
 
-    it "knows about existing tweets" do
-      @tweets = Tweet.all
-
-      expect(@tweets.count). to eq 1
+    it "checks existing tweets" do
+      expect(Bot.check_for_existing_tweet("1")).to eq 1
     end
 
-    it "generates a response" do
-      bot = Bot.create(id: 1)
-
-      bot.find_and_reply
-
-      expect(Response.first).to eq "Don't count on it"
+    it "generates a response tweet when send_reply_tweet is called" do
+      expect(Bot.send_reply_tweet("carjug")).to eq "@carjug Don't count on it"
     end
   end
 end
