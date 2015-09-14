@@ -1,8 +1,18 @@
 set :output, {:standard => 'cron.log'}
 
-set :environment,'development'
+if Rails.env.development?
+  set :environment,'development'
 
-every 15.minutes do
-  rake "bot:run_bot"
+  every 2.minutes do
+    rake "bot:run_bot"
+  end
+end
+
+if Rails.env.production?
+  set :environment, 'production'
+
+  every 15.minutes do
+    rake "bot:run_bot"
+  end
 end
 
