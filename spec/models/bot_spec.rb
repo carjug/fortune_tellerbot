@@ -32,7 +32,11 @@ RSpec.describe Bot, type: :model do
     end
 
     it "generates a response" do
+      bot = Bot.create(id: 1)
 
+      bot.find_and_reply
+
+      expect(Response.first).to eq "Don't count on it"
     end
   end
 end
